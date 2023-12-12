@@ -1,9 +1,12 @@
 class Checkout {
   constructor(pricingRules) {
     this.pricingRules = pricingRules;
-    this.basket = {...this.pricingRules.DEFAULT_BASKET};
+    this.basket = {};
+    for (let key in this.pricingRules.ITEMS) {
+      this.basket[key] = 0;
+    }
   }
-
+  
   scan(item) {
     if(!Object.keys(this.basket).includes(item)) {
       return;

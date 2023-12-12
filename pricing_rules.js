@@ -2,11 +2,11 @@ class PricingRules {
   ITEMS = {
     A: {
       price: 50,
-      discount_rule: (amount) => Math.floor(amount / 3) * 130 + (amount % 3) * this.PRICES.A,
+      discount_rule: (amount) => Math.floor(amount / 3) * 130 + (amount % 3) * 50,
     },
     B: {
       price: 30,
-      discount_rule: (amount) => Math.floor(amount / 2) * 45 + (amount % 2) * this.PRICES.B,
+      discount_rule: (amount) => Math.floor(amount / 2) * 45 + (amount % 2) * 30,
     },
     C: {
       price: 20,
@@ -16,8 +16,7 @@ class PricingRules {
       price: 15,
       discount_rule: null,
     },
-  }
-  DEFAULT_BASKET = {A: 0, B: 0, C: 0, D: 0,}
+  };
 
   constructor() {
   }
