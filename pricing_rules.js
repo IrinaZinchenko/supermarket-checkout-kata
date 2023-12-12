@@ -1,17 +1,34 @@
 class PricingRules {
-  PRICES = {A: 50, B: 30, C: 20, D: 15,}
+  ITEMS = {
+    A: {
+      price: 50,
+      discount_rule: (amount) => Math.floor(amount / 3) * 130 + (amount % 3) * this.PRICES.A,
+    },
+    B: {
+      price: 30,
+      discount_rule: (amount) => Math.floor(amount / 2) * 45 + (amount % 2) * this.PRICES.B,
+    },
+    C: {
+      price: 20,
+      discount_rule: null,
+    },
+    D: {
+      price: 15,
+      discount_rule: null,
+    },
+  }
   DEFAULT_BASKET = {A: 0, B: 0, C: 0, D: 0,}
-  ITEM_RULES = {
-    A: (amount) => Math.floor(amount / 3) * 130 + (amount % 3) * this.PRICES.A,
-    B: (amount) => Math.floor(amount / 2) * 45 + (amount % 2) * this.PRICES.B,
-  };
 
   constructor() {
   }
 
-  forItem(item, amount) {
-    const rule = this.ITEM_RULES[item];
-    return (rule) ? rule(amount) : this.PRICES[item] * amount;
+  forItem(item_code, amount) {
+    const item = this.ITEMS[item_code];
+    if (item.discount_rule) {
+      return item.discount_rule(amount);
+    }
+
+    return item.price * amount;
   }
 
   forTotal(sum) {
