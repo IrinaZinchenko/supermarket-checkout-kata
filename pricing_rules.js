@@ -1,18 +1,17 @@
 class PricingRules {
   PRICES = {A: 50, B: 30, C: 20, D: 15,}
   DEFAULT_BASKET = {A: 0, B: 0, C: 0, D: 0,}
+  ITEM_RULES = {
+    A: (amount) => Math.floor(amount / 3) * 130 + (amount % 3) * this.PRICES.A,
+    B: (amount) => Math.floor(amount / 2) * 45 + (amount % 2) * this.PRICES.B,
+  };
 
   constructor() {
   }
 
   forItem(item, amount) {
-    if (item === 'A') {
-      return Math.floor(amount / 3) * 130 + (amount % 3) * this.PRICES[item];
-    }
-    if (item === 'B') {
-      return Math.floor(amount / 2) * 45 + (amount % 2) * this.PRICES[item];
-    }
-    return this.PRICES[item] * amount;
+    const rule = this.ITEM_RULES[item];
+    return (rule) ? rule(amount) : this.PRICES[item] * amount;
   }
 
   forTotal(sum) {
